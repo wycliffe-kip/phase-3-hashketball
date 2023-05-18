@@ -1,5 +1,7 @@
 # Write your code below game_hash
+
 def game_hash
+
   {
     home: {
       team_name: "Brooklyn Nets",
@@ -127,3 +129,79 @@ def game_hash
 end
 
 # Write code here
+
+def num_points_scored(player_name)
+  game_hash[:home][:players].each do |player|
+    return player[:points] if player[:player_name] == player_name
+  end 
+
+  game_hash[:away][:players].each do |player|
+    return player[:points] if player[:player_name] == player_name
+  end 
+
+  "Player not found"
+end 
+
+def shoe_size(player_name)
+  game_hash[:home][:players].find do |player|
+    return player[:shoe] if player[:player_name] == player_name
+  end
+  game_hash[:away][:players].find do |player|
+    return player[:shoe] if player[:player_name] == player_name
+  end
+end  
+
+def team_colors(team_name)
+  game_hash.each do |location, team_data|
+    return team_data[:colors] if team_data[:team_name] == team_name
+  end 
+  []
+end 
+
+
+def team_names
+  game_hash.map do |location, team_data|
+    team_data[:team_name]
+  end 
+end 
+
+def player_numbers(team_name)
+  numbers = []
+
+  game_hash.each do |location, team_data| 
+    if team_data[:team_name] == team_name
+      team_data[:players].each do |player|
+        numbers << player[:number]
+      end 
+    end 
+  end 
+  numbers
+end 
+
+def player_stats (player_name)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player|
+      return player if player[:player_name] == player_name
+    end 
+  end 
+
+  {}
+end 
+
+
+def big_shoe_rebounds 
+  largest_shoe_size = 0
+  player_rebounds = 0
+
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player|
+      if player[:shoe] > largest_shoe_size
+        largest_shoe_size = player[:shoe]
+        player_rebounds = player[:rebounds]
+      end 
+    end 
+  end 
+
+  player_rebounds
+end 
+big_shoe_rebounds
